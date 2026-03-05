@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WesleyOS v39.0.1</title>
+
+<style>
+body {
+  margin: 0;
+  background: black;
+  color: #00ff88;
+  font-family: monospace;
+  text-align: center;
+  padding: 20px;
+  overflow: hidden;
+}
+
+h1 {
+  margin-top: 40px;
+}
+
+button {
+  background: #00ff88;
+  border: none;
+  padding: 12px 20px;
+  margin: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 8px;
+  color: black;
+}
+
+#contador {
+  margin-top: 25px;
+  font-size: 14px;
+}
+
+.hidden {
+  display: none;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Iniciando WesleyOS v39.0.1...</h1>
+<p id="terminal"></p>
+
+<div id="contador"></div>
+
+<div id="botoes" class="hidden">
+  <p>Deseja continuar por mais 50 anos?</p>
+  <button onclick="aceitar()">SIM 😂</button>
+  <button id="nao" onmouseover="fugir()">NÃO</button>
+</div>
+
+<p id="final" class="hidden"></p>
+
+<script>
+
+const texto = [
+"Carregando Wesley...",
+"Instalando módulo: Melhor marido ✔",
+"Instalando módulo: Paciência infinita ✔",
+"Corrigindo bug: Reclamar da minha bagunça ❌",
+"Atualização concluída com sucesso!",
+"Versão atual: 39.0.1",
+"Licença: Vitalícia ❤️"
+];
+
+let i = 0;
+let j = 0;
+let terminal = document.getElementById("terminal");
+
+function escreverLinha() {
+  if (i < texto.length) {
+    if (j < texto[i].length) {
+      terminal.innerHTML += texto[i].charAt(j);
+      j++;
+      setTimeout(escreverLinha, 30);
+    } else {
+      terminal.innerHTML += "<br>";
+      i++;
+      j = 0;
+      setTimeout(escreverLinha, 400);
+    }
+  } else {
+    document.getElementById("botoes").classList.remove("hidden");
+  }
+}
+
+escreverLinha();
+
+
+/* CONTADOR COMPLETO DESDE 11/02/2019 */
+
+function atualizarContador() {
+
+  const inicio = new Date(2009, 1, 11, 0, 0, 0); // mês começa em 0 (1 = fevereiro)
+  const agora = new Date();
+
+  let anos = agora.getFullYear() - inicio.getFullYear();
+  let meses = agora.getMonth() - inicio.getMonth();
+  let dias = agora.getDate() - inicio.getDate();
+
+  if (dias < 0) {
+    meses--;
+    const ultimoMes = new Date(agora.getFullYear(), agora.getMonth(), 0);
+    dias += ultimoMes.getDate();
+  }
+
+  if (meses < 0) {
+    anos--;
+    meses += 12;
+  }
+
+  const diff = agora - inicio;
+  const horas = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const minutos = Math.floor((diff / (1000 * 60)) % 60);
+  const segundos = Math.floor((diff / 1000) % 60);
+
+  document.getElementById("contador").innerHTML =
+    "Tempo de uso do sistema:<br><br>" +
+    anos + " anos, " +
+    meses + " meses, " +
+    dias + " dias<br>" +
+    horas + " horas, " +
+    minutos + " minutos e " +
+    segundos + " segundos 💚";
+}
+
+setInterval(atualizarContador, 1000);
+atualizarContador();
+
+
+function fugir() {
+  const botao = document.getElementById("nao");
+  botao.style.position = "absolute";
+  botao.style.top = Math.random() * (window.innerHeight - 50) + "px";
+  botao.style.left = Math.random() * (window.innerWidth - 100) + "px";
+}
+
+function aceitar() {
+  document.getElementById("botoes").classList.add("hidden");
+  document.getElementById("final").classList.remove("hidden");
+
+  document.getElementById("final").innerHTML =
+"Merge realizado com sucesso ❤️<br><br>" +
+
+"Wesley,<br><br>" +
+
+"Há 17 anos eu escolho você, o aniversário é seu mas<br>" +
+"o presente quem ganha somos nós de ter você para chamar de lar.<br>" +
+"E escolheria de novo. E de novo. E de novo.<br>" +
+"Obrigada por ser meu abrigo nos dias difíceis,<br>" +
+"minha gargalhada nos dias leves,<br>" +
+"e meu parceiro em absolutamente tudo.<br>" +
+"Você não é só o amor da minha vida.<br>" +
+"Você é a minha melhor decisão.<br><br>" +
+
+"Feliz 39 anos, meu amor.<br>" +
+"Que a gente continue atualizando esse sistema<br>" +
+"por muitos e muitos anos.<br><br>" +
+
+"Com amor,<br>" +
+"Sua Dev favorita 💚";
+  confete (); // chama o confete aqui
+} 
+function confete() {
+
+  const centroX = window.innerWidth / 2;
+  const centroY = window.innerHeight / 2;
+
+  for (let i = 0; i < 200; i++) {
+
+    let particula = document.createElement("div");
+
+    particula.style.position = "fixed";
+    particula.style.width = "8px";
+    particula.style.height = "8px";
+    particula.style.background = Math.random() > 0.5 ? "#00ff88" : "#ffffff";
+    particula.style.left = centroX + "px";
+    particula.style.top = centroY + "px";
+    particula.style.borderRadius = "50%";
+    particula.style.pointerEvents = "none";
+
+    document.body.appendChild(particula);
+
+    // direção aleatória
+    let angulo = Math.random() * 2 * Math.PI;
+    let distancia = Math.random() * 300 + 100;
+
+    let destinoX = centroX + Math.cos(angulo) * distancia;
+    let destinoY = centroY + Math.sin(angulo) * distancia;
+
+    particula.animate([
+      { transform: "translate(0, 0)", opacity: 1 },
+      { transform: `translate(${destinoX - centroX}px, ${destinoY - centroY}px)`, opacity: 0 }
+    ], {
+      duration: 1200,
+      easing: "ease-out"
+    });
+
+    setTimeout(() => {
+      particula.remove();
+    }, 1200);
+  }
+}
+  
+  
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Agenda da Nail Designer</title>
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #ffe6f0;
+            text-align: center;
+            padding: 40px;
+        }
+
+        h1 {
+            color: #d63384;
+        }
+
+        input, select {
+            padding: 10px;
+            margin: 10px;
+            width: 200px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #d63384;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        #mensagem {
+            margin-top: 20px;
+            font-weight: bold;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Agendamento 💅</h1>
+
+    <input type="text" id="nome" placeholder="Nome da cliente">
+    <br>
+
+    <select id="servico">
+        <option value="">Escolha o serviço</option>
+        <option>Alongamento</option>
+        <option>Manutenção</option>
+        <option>Esmaltação</option>
+    </select>
+    <br>
+
+    <input type="date" id="data">
+    <br>
+
+    <button onclick="agendar()">Agendar</button>
+
+    <div id="mensagem"></div>
+
+    <script>
+        function agendar() {
+            let nome = document.getElementById("nome").value;
+            let servico = document.getElementById("servico").value;
+            let data = document.getElementById("data").value;
+
+            if(nome === "" || servico === "" || data === "") {
+                document.getElementById("mensagem").innerHTML = "Preencha todos os campos!";
+            } else {
+                document.getElementById("mensagem").innerHTML =
+                    "Agendamento confirmado para " + nome +
+                    " no serviço de " + servico +
+                    " na data " + data + " 💖";
+            }
+        }
+    </script>
+
+</body>
+</html>
